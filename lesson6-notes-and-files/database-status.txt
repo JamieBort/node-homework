@@ -1,0 +1,52 @@
+node-homework % brew services list
+✔︎ JSON API cask_tap_migrations.jws.json                                                                                                                                                                                            [Downloaded    2.4KB/  2.4KB]
+✔︎ JSON API cask.jws.json                                                                                                                                                                                                           [Downloaded   15.3MB/ 15.3MB]
+✔︎ JSON API formula.jws.json                                                                                                                                                                                                        [Downloaded   32.0MB/ 32.0MB]
+✔︎ JSON API formula_tap_migrations.jws.json                                                                                                                                                                                         [Downloaded    1.9KB/  1.9KB]
+Name          Status  User File
+postgresql@14 started zeus ~/Library/LaunchAgents/homebrew.mxcl.postgresql@14.plist
+node-homework % pg_isready
+/tmp:5432 - accepting connections
+node-homework % psql -U node_homework_owner -d tasklist -h /tmp
+
+psql (14.20 (Homebrew))
+Type "help" for help.
+
+tasklist=> \l
+                                       List of databases
+     Name     |        Owner        | Encoding |   Collate   |    Ctype    | Access privileges
+--------------+---------------------+----------+-------------+-------------+-------------------
+ nodehomework | node_homework_owner | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ postgres     | zeus                | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ tasklist     | node_homework_owner | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ template0    | zeus                | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/zeus          +
+              |                     |          |             |             | zeus=CTc/zeus
+ template1    | zeus                | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/zeus          +
+              |                     |          |             |             | zeus=CTc/zeus
+ testtasklist | node_homework_owner | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+(6 rows)
+
+tasklist=> \du
+                                        List of roles
+      Role name      |                         Attributes                         | Member of
+---------------------+------------------------------------------------------------+-----------
+ node_homework_owner | Create DB                                                  | {}
+ zeus                | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+tasklist=> psql -U node_homework_owner -d tasklist -h /tmp
+tasklist-> \dt
+              List of relations
+ Schema | Name  | Type  |        Owner
+--------+-------+-------+---------------------
+ public | tasks | table | node_homework_owner
+ public | users | table | node_homework_owner
+(2 rows)
+
+tasklist-> \dn
+List of schemas
+  Name  | Owner
+--------+-------
+ public | zeus
+(1 row)
+
+tasklist-> \q
